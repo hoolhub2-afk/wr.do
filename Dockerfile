@@ -8,10 +8,10 @@ RUN apk add --no-cache openssl libc6-compat
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm@9
 
-# Copy only package files first for better caching
-COPY package.json pnpm-lock.yaml ./
+# Copy package files and config for dependency installation
+COPY package.json pnpm-lock.yaml .npmrc ./
 
 # Install dependencies
 RUN pnpm i --frozen-lockfile
@@ -22,7 +22,7 @@ FROM base AS builder
 WORKDIR /app
 
 RUN apk add --no-cache openssl
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm@9
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
@@ -39,7 +39,7 @@ FROM base AS runner
 WORKDIR /app
 
 RUN apk add --no-cache openssl
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm@9
 
 ENV NODE_ENV=production
 ENV IS_DOCKER=true
