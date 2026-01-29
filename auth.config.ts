@@ -10,7 +10,6 @@ import { env } from "@/env.mjs";
 const linuxDoProvider: any = {
   id: "linuxdo",
   name: "Linux Do",
-  version: "2.0",
   type: "oauth",
   authorization: "https://connect.linux.do/oauth2/authorize",
   token: "https://connect.linux.do/oauth2/token",
@@ -18,6 +17,9 @@ const linuxDoProvider: any = {
   clientId: env.LinuxDo_CLIENT_ID,
   clientSecret: env.LinuxDo_CLIENT_SECRET,
   checks: ["state"],
+  client: {
+    token_endpoint_auth_method: "client_secret_post",
+  },
   profile: (profile: any) => {
     console.log("profile", profile);
     return {
@@ -26,10 +28,6 @@ const linuxDoProvider: any = {
       image: profile.avatar_url,
       email: profile.email,
       active: profile.active ? 1 : 0,
-      // username: profile.username,
-      // trust_level: profile.trust_level,
-      // silenced: profile.user.silenced,
-      // email: profile.user.email,
     };
   },
 };
