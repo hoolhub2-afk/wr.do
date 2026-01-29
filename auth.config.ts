@@ -11,7 +11,10 @@ const linuxDoProvider: any = {
   id: "linuxdo",
   name: "Linux Do",
   type: "oauth",
-  authorization: "https://connect.linux.do/oauth2/authorize",
+  authorization: {
+    url: "https://connect.linux.do/oauth2/authorize",
+    params: { scope: "user" },
+  },
   token: "https://connect.linux.do/oauth2/token",
   userinfo: "https://connect.linux.do/api/user",
   clientId: env.LinuxDo_CLIENT_ID,
