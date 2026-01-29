@@ -1,54 +1,59 @@
 FROM node:20-alpine AS base
 
+# Install dependencies only when needed
 FROM base AS deps
 
-RUN apk add --no-cache openssl
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache openssl libc6-compat
 
 WORKDIR /app
 
-RUN npm install -g pnpm
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY . .
+# Copy only package files first for better caching
+COPY package.json pnpm-lock.yaml ./
 
-# RUN pnpm config set registry https://registry.npmmirror.com
-
+# Install dependencies
 RUN pnpm i --frozen-lockfile
 
+# Build stage
 FROM base AS builder
+
 WORKDIR /app
 
 RUN apk add --no-cache openssl
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-RUN npm install -g pnpm
-
+# Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
+
+# Copy source files
 COPY . .
 
+# Build the application
 RUN pnpm run build
 
+# Production stage
 FROM base AS runner
 
 WORKDIR /app
 
 RUN apk add --no-cache openssl
-
-RUN npm install -g pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 ENV NODE_ENV=production
 ENV IS_DOCKER=true
 
+# Install only production runtime dependencies
 RUN pnpm add npm-run-all dotenv prisma@5.17.0 @prisma/client@5.17.0
 
+# Copy built assets
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Check db
+# Copy startup script
 COPY scripts/check-db.js /app/scripts/check-db.js
 
 EXPOSE 3000
@@ -56,5 +61,4 @@ EXPOSE 3000
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
 
-# CMD ["node", "server.js"]
 CMD ["pnpm", "start-docker"]
