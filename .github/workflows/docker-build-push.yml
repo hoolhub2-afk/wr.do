@@ -10,6 +10,21 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Image tag (e.g., latest, v1.0.0)'
+        required: false
+        default: 'manual'
+      platform:
+        description: 'Target platform'
+        required: false
+        default: 'linux/amd64'
+        type: choice
+        options:
+          - linux/amd64
+          - linux/arm64
+          - linux/amd64,linux/arm64
 
 env:
   REGISTRY: ghcr.io
@@ -46,9 +61,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=sha,format=short  
-            type=ref,event=branch,prefix=  
+            type=sha,format=short
+            type=ref,event=branch,prefix=
             type=ref,event=tag
+            type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event_name == 'workflow_dispatch' }}
 
       # 构建并推送 Docker 镜像
       - name: Build and push Docker image
@@ -56,10 +72,9 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true # ${{ github.event_name != 'pull_request' }}
+          platforms: ${{ github.event.inputs.platform || 'linux/amd64' }}
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            ENVIRONMENT=${{ github.event.inputs.environment || 'production' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
