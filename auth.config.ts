@@ -25,9 +25,14 @@ const linuxDoProvider: any = {
   },
   profile: (profile: any) => {
     console.log("profile", profile);
-    // Use unavatar.io to get avatar, fallback to dicebear
-    // unavatar supports GitHub, Twitter, etc. For linux.do, use dicebear with username
-    const avatarUrl = `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(profile.username || profile.name || 'user')}`;
+
+    // Build avatar URL from avatar_template
+    // Format: /user_avatar/linux.do/{username}/{size}/{id}.png
+    let avatarUrl = `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(profile.username || 'user')}`;
+    if (profile.avatar_template) {
+      // Store the template URL - will be proxied on display
+      avatarUrl = `https://linux.do${profile.avatar_template.replace("{size}", "288")}`;
+    }
 
     return {
       id: profile.id.toString(),
@@ -35,6 +40,7 @@ const linuxDoProvider: any = {
       image: avatarUrl,
       email: profile.email,
       active: profile.active ? 1 : 0,
+      trustLevel: profile.trust_level || 0,
     };
   },
 };

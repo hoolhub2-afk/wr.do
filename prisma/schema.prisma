@@ -58,6 +58,7 @@ model User {
   active        Int       @default(1) // 0 封禁，1 正常
   team          String?   @default("free")
   apiKey        String?
+  trustLevel    Int?      @default(0) // LinuxDo trust level (0-4)
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
   role          UserRole  @default(USER)

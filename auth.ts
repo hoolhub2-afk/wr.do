@@ -15,6 +15,7 @@ declare module "next-auth" {
       active: number;
       apiKey: string;
       emailVerified: Date;
+      trustLevel: number;
     } & DefaultSession["user"];
   }
 }
@@ -31,6 +32,21 @@ export const {
     // error: "/auth/error",
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      // Update trustLevel for LinuxDo users
+      if (account?.provider === "linuxdo" && profile && user.id) {
+        const linuxDoProfile = profile as any;
+        if (typeof linuxDoProfile.trust_level === "number") {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { trustLevel: linuxDoProfile.trust_level },
+          }).catch(() => {
+            // User might not exist yet on first sign in
+          });
+        }
+      }
+      return true;
+    },
     async session({ token, session }) {
       if (session.user) {
         if (token.sub) {
@@ -51,6 +67,7 @@ export const {
         session.user.team = token.team as string;
         session.user.apiKey = token.apiKey as string;
         session.user.emailVerified = token.emailVerified as Date;
+        session.user.trustLevel = (token.trustLevel as number) || 0;
       }
 
       return session;
@@ -70,6 +87,7 @@ export const {
       token.team = dbUser.team || "free";
       token.apiKey = dbUser.apiKey;
       token.emailVerified = dbUser.emailVerified;
+      token.trustLevel = dbUser.trustLevel || 0;
 
       return token;
     },
