@@ -105,10 +105,11 @@ export default function S3Configs({}: {}) {
   const canSaveR2Credentials = useMemo(() => {
     if (!configs) return true;
 
+    const configList = configs.s3_config_list ?? [];
     return (
       Object.keys(s3Configs).some(
-        (key) => s3Configs[key] !== configs.s3_config_list[key],
-      ) || configs.s3_config_list.length !== s3Configs.length
+        (key) => s3Configs[key] !== configList[key],
+      ) || configList.length !== s3Configs.length
     );
   }, [s3Configs, configs]);
 

@@ -27,6 +27,10 @@ export async function GET() {
       suffixWhiteList: configs.email_registration_suffix_limit_white_list,
     });
   } catch (error) {
-    console.log("[Error]", error);
+    console.error("[API /feature Error]", error);
+    return Response.json(
+      { error: "Failed to fetch feature config" },
+      { status: 500 },
+    );
   }
 }
