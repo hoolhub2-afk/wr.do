@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 import { hashPassword, verifyPassword } from "../utils";
 
 export interface UpdateUserForm
-  extends Omit<User, "id" | "createdAt" | "updatedAt" | "emailVerified"> {}
+  extends Partial<Omit<User, "id" | "createdAt" | "updatedAt" | "emailVerified">> {}
 
 export const getUserByEmail = async (email: string) => {
   try {
