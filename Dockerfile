@@ -10,10 +10,11 @@ WORKDIR /app
 # Install pnpm
 RUN npm install -g pnpm@9
 
-# Copy package files and config for dependency installation
+# Copy package files, config, and prisma schema for dependency installation
 COPY package.json pnpm-lock.yaml .npmrc ./
+COPY prisma ./prisma
 
-# Install dependencies
+# Install dependencies (postinstall runs prisma generate)
 RUN pnpm i --frozen-lockfile
 
 # Build stage
