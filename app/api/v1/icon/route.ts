@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Icon from "lucide-static";
+import * as icons from "lucide-static";
 
 import { toCamelCase } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export async function GET(req: Request) {
     let svgString = "";
     let svgClipString = "";
     if (iconInfo.type === "svg") {
-      const iconD = (Icon as { [key: string]: any })[
+      const iconD = (icons as { [key: string]: any })[
         toCamelCase(iconInfo.value)
       ];
 
