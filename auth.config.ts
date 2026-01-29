@@ -25,10 +25,16 @@ const linuxDoProvider: any = {
   },
   profile: (profile: any) => {
     console.log("profile", profile);
+    // avatar_template format: /user_avatar/linux.do/{username}/{size}/{id}.png
+    // Replace {size} with actual size (e.g., 288)
+    let avatarUrl = profile.avatar_url;
+    if (profile.avatar_template) {
+      avatarUrl = `https://linux.do${profile.avatar_template.replace("{size}", "288")}`;
+    }
     return {
       id: profile.id.toString(),
       name: profile.username,
-      image: profile.avatar_url,
+      image: avatarUrl,
       email: profile.email,
       active: profile.active ? 1 : 0,
     };
