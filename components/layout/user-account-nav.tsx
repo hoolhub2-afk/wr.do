@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { LayoutDashboard, Lock, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, Lock, LogOut, Settings, Shield } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Drawer } from "vaul";
@@ -18,6 +18,28 @@ import {
 import { UserAvatar } from "@/components/shared/user-avatar";
 
 import { Badge } from "../ui/badge";
+
+// Trust level badge colors
+const trustLevelColors: Record<number, string> = {
+  0: "bg-gray-500",
+  1: "bg-green-500",
+  2: "bg-blue-500",
+  3: "bg-purple-500",
+  4: "bg-yellow-500",
+};
+
+function TrustLevelBadge({ level }: { level: number }) {
+  if (level === undefined || level === null) return null;
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-xs font-medium text-white ${trustLevelColors[level] || "bg-gray-500"}`}
+      title={`LinuxDo Trust Level ${level}`}
+    >
+      <Shield className="size-3" />
+      {level}
+    </span>
+  );
+}
 
 export function UserAccountNav() {
   const { data: session } = useSession();
@@ -63,6 +85,9 @@ export function UserAccountNav() {
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <p className="font-medium">{user.name || "Anonymous"}</p>
+                  {user.trustLevel !== undefined && user.trustLevel > 0 && (
+                    <TrustLevelBadge level={user.trustLevel} />
+                  )}
                   <Link href={"/pricing"} target="_blank">
                     <Badge className="text-xs font-semibold" variant="default">
                       {user.team}
@@ -152,7 +177,12 @@ export function UserAccountNav() {
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             <div className="flex items-center justify-between">
-              <p className="font-medium">{user.name || "Anonymous"}</p>
+              <div className="flex items-center gap-2">
+                <p className="font-medium">{user.name || "Anonymous"}</p>
+                {user.trustLevel !== undefined && user.trustLevel > 0 && (
+                  <TrustLevelBadge level={user.trustLevel} />
+                )}
+              </div>
               <Link href={"/pricing"} target="_blank">
                 <Badge className="text-xs font-semibold" variant="default">
                   {user.team}
