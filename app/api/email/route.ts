@@ -6,6 +6,7 @@ import { checkUserStatus } from "@/lib/dto/user";
 import { reservedAddressSuffix } from "@/lib/enums";
 import { getCurrentUser } from "@/lib/session";
 import { restrictByTimeRange } from "@/lib/team";
+export const dynamic = "force-dynamic";
 
 // 查询所有 UserEmail 地址
 export async function GET(req: NextRequest) {

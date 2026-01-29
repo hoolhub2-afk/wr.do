@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 
 import { deleteUserById } from "@/lib/dto/user";
+export const dynamic = "force-dynamic";
 
 export const DELETE = auth(async (req) => {
   if (!req.auth) {

@@ -3,6 +3,7 @@ import { getUserRecords } from "@/lib/dto/cloudflare-dns-record";
 import { deleteUserShortUrl } from "@/lib/dto/short-urls";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

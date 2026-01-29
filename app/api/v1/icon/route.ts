@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import * as icons from "lucide-static";
 
 import { toCamelCase } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {

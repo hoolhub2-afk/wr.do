@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 
 import { createUserShortUrlMeta, getUrlBySuffix } from "@/lib/dto/short-urls";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {

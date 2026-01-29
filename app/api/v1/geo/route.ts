@@ -1,4 +1,5 @@
 import { getIpInfo } from "@/lib/geo";
+export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {

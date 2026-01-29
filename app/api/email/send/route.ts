@@ -9,6 +9,7 @@ import { brevoSendEmail } from "@/lib/email/brevo";
 import { getCurrentUser } from "@/lib/session";
 import { restrictByTimeRange } from "@/lib/team";
 import { isValidEmail } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {

@@ -7,6 +7,7 @@ import {
 } from "@/lib/dto/email";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 // 查询单个 UserEmail
 export async function GET(

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { deleteEmailsByIds, getEmailsByEmailAddress } from "@/lib/dto/email";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 // 通过 emailAddress 查询所有相关 ForwardEmail
 export async function GET(req: NextRequest) {

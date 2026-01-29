@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { getMultipleConfigs } from "@/lib/dto/system-config";
 import { hashPassword, verifyPassword } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {

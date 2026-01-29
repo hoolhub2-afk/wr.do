@@ -9,6 +9,7 @@ import { getPlanQuota } from "@/lib/dto/plan";
 import { checkUserStatus, getUserByEmail } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
 import { generateSecret } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

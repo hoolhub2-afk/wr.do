@@ -9,6 +9,7 @@ import { brevoSendEmail } from "@/lib/email/brevo";
 import { resend } from "@/lib/email/resend";
 import { applyRecordToUserEmailHtml } from "@/lib/email/templates";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

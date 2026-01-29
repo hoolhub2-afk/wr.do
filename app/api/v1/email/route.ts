@@ -6,6 +6,7 @@ import { createUserEmail, deleteUserEmailByAddress } from "@/lib/dto/email";
 import { getPlanQuota } from "@/lib/dto/plan";
 import { reservedAddressSuffix } from "@/lib/enums";
 import { restrictByTimeRange } from "@/lib/team";
+export const dynamic = "force-dynamic";
 
 // 创建新 UserEmail
 export async function POST(req: NextRequest) {

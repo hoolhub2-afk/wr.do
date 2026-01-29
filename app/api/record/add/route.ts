@@ -16,6 +16,7 @@ import { applyRecordEmailHtml } from "@/lib/email/templates";
 import { reservedDomains } from "@/lib/enums";
 import { getCurrentUser } from "@/lib/session";
 import { generateSecret } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

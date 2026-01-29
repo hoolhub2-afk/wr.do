@@ -2,6 +2,7 @@ import { getConfiguredEmailDomains } from "@/lib/dto/domains";
 import { OriginalEmail, saveForwardEmail } from "@/lib/dto/email";
 import { getMultipleConfigs } from "@/lib/dto/system-config";
 import { brevoSendEmail } from "@/lib/email/brevo";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

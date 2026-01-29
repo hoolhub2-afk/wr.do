@@ -4,6 +4,7 @@ import { create } from "lodash";
 import { prisma } from "@/lib/db";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {

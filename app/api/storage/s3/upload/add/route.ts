@@ -5,6 +5,7 @@ import { createUserFile } from "@/lib/dto/files";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
 import { bytesToStorageValue } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {

@@ -2,6 +2,7 @@
 import { NextRequest } from "next/server";
 
 import { getScrapeStatsByUserId } from "@/lib/dto/scrape";
+export const dynamic = "force-dynamic";
 
 export interface LogsResponse {
   logs: {

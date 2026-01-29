@@ -8,6 +8,7 @@ import { checkUserStatus } from "@/lib/dto/user";
 import { createS3Client } from "@/lib/s3";
 import { getCurrentUser } from "@/lib/session";
 import { generateFileKey } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {

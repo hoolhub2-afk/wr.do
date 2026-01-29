@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { env } from "@/env.mjs";
+export const dynamic = "force-dynamic";
 
 interface GitHubResponse {
   stargazers_count: number;

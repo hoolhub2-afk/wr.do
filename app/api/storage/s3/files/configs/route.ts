@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getMultipleConfigs } from "@/lib/dto/system-config";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {

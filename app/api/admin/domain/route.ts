@@ -8,6 +8,7 @@ import {
 } from "@/lib/dto/domains";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 // Get domains list
 export async function GET(req: NextRequest) {

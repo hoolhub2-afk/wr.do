@@ -7,6 +7,7 @@ import {
 } from "@/lib/dto/email";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 // 处理单封邮件标记为已读 (POST)
 export async function POST(request: NextRequest) {

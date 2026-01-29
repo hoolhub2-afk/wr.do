@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
 import { hashPassword } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

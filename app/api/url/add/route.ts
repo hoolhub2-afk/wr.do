@@ -5,6 +5,7 @@ import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
 import { restrictByTimeRange } from "@/lib/team";
 import { createUrlSchema } from "@/lib/validations/url";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

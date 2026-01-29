@@ -4,6 +4,7 @@ import { getPlanQuota } from "@/lib/dto/plan";
 import { createUserShortUrl } from "@/lib/dto/short-urls";
 import { restrictByTimeRange } from "@/lib/team";
 import { createUrlSchema } from "@/lib/validations/url";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

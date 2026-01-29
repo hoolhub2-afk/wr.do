@@ -3,6 +3,7 @@ import { checkUserStatus } from "@/lib/dto/user";
 import { TIME_RANGES } from "@/lib/enums";
 import { getCurrentUser } from "@/lib/session";
 import { getStartDate } from "@/lib/utils";
+export const dynamic = "force-dynamic";
 
 export const revalidate = 60;
 

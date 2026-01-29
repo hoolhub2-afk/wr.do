@@ -7,6 +7,7 @@ import { WRDO_QR_LOGO } from "@/lib/qr/constants";
 import { QRCodeSVG } from "@/lib/qr/utils";
 import { getSearchParams } from "@/lib/utils";
 import { getQRCodeQuerySchema } from "@/lib/validations/qr";
+export const dynamic = "force-dynamic";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",

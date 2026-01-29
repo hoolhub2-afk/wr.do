@@ -4,6 +4,7 @@ import { updateUserShortUrl } from "@/lib/dto/short-urls";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
 import { createUrlSchema } from "@/lib/validations/url";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {

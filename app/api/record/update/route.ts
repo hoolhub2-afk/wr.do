@@ -7,6 +7,7 @@ import { getDomainsByFeature } from "@/lib/dto/domains";
 import { checkUserStatus } from "@/lib/dto/user";
 import { reservedDomains } from "@/lib/enums";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 // Update DNS record
 export async function POST(req: Request) {

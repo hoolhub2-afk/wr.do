@@ -5,6 +5,7 @@ import { getMultipleConfigs } from "@/lib/dto/system-config";
 import { checkUserStatus } from "@/lib/dto/user";
 import { createS3Client, deleteFile, getSignedUrlForDownload } from "@/lib/s3";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {

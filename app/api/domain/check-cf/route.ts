@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { getZoneDetail } from "@/lib/cloudflare";
 import { checkUserStatus } from "@/lib/dto/user";
 import { getCurrentUser } from "@/lib/session";
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {
